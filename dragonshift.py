@@ -10,10 +10,6 @@ from scapy.all import rdpcap, Dot11Elt, Dot11Beacon, Dot11ProbeResp, Dot11
 from collections import defaultdict
 from colorama import Fore, Style, init
 
-# IMPORTS :
-# scapy==2.5.0
-# colorama==0.4.6
-
 init(autoreset=True)
 
 def print_banner():
@@ -29,7 +25,7 @@ def print_banner():
    ░       ░           ░  ░      ░     ░ ░           ░       ░   ░  ░  ░ ░                   
  ░                                                                                           
 
-DragonShift v1 - WPA3-Transition Downgrade Attack Tool
+DragonShift v0.5 - WPA3-Transition Downgrade Attack Tool
 Copyright (c) 2024, Akerva, CHAABT Moussa
     """
     print(banner)
