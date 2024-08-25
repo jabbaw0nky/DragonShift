@@ -5,6 +5,9 @@ The attack works by luring clients to connect to the rogue AP using the less sec
 
 This tool is intended for use by security researchers and penetration testers to demonstrate the risks associated with WPA3-Transition Mode and to help network administrators identify and mitigate such vulnerabilities.
 
+More info in the following blogposts :
+https://jabba.sensorack.com/posts/2024/08/wpa3-downgrade-attack/
+
 **IMPORTANT**:
 This script has primarily been tested in lab environments, specifically on the following setup: [WiFiChallengeLab-docker](https://github.com/r4ulcl/WiFiChallengeLab-docker). When run on production infrastructure, **the script should have no impact**, as its purpose is to scan, detect and wait for a client to connect to the rogue AP created by the script to capture the handshake. However, please be aware that errors may still occur.
 
